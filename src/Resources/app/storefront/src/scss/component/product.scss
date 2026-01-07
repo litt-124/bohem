@@ -1,0 +1,169 @@
+.product-box {
+  border-color: transparent;
+  text-align: center;
+
+  &:hover {
+    border-color: $gray-200;
+  }
+
+  .product-variant-characteristics-text {
+    text-align: center;
+    height: 1rem;
+    max-width: 100%;
+    margin-right: unset;
+    padding-right: unset;
+  }
+
+  .product-variant-characteristics {
+    min-height: 1rem;
+    font-family: $primary-font-family;
+    font-weight: 400;
+  }
+
+  .product-name {
+    font-family: $secondary-font-family;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .product-price {
+    font-size: 14px;
+    font-family: $primary-font-family;
+
+  }
+}
+
+.bohem-product-media-slider {
+  position: relative;
+
+  /* Hide controls by default */
+  .bohem-swiper-buttons,
+  .swiper-pagination {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 160ms ease, visibility 160ms ease;
+  }
+
+  /* Show controls on hover (desktop) */
+  &:hover {
+    .bohem-swiper-buttons,
+    .swiper-pagination {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+
+  /* Buttons container overlay */
+  .bohem-swiper-buttons {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .bohem-swiper-buttons .swiper-button-prev,
+  .bohem-swiper-buttons .swiper-button-next {
+    pointer-events: auto;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(-50%);
+
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+
+    border: 0;
+    background: $white;
+    box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.06),
+            0 6px 16px rgba(0, 0, 0, 0.04);
+    display: grid;
+    place-items: center;
+    padding: 0;
+
+    .icon {
+      color: $black;
+      width: 10px;
+      height: 10px;
+
+      svg {
+        top: 0;
+      }
+    }
+    &.swiper-button-disabled{
+      display: none;
+    }
+
+  }
+
+  .bohem-swiper-buttons .swiper-button-prev {
+    left: 8px;
+    .icon svg{
+      right: 1px;
+    }
+  }
+
+  .bohem-swiper-buttons .swiper-button-next {
+    right: 8px;
+    .icon svg{
+      left: 1px;
+    }
+  }
+
+  /* Remove Swiper default arrow pseudo-elements */
+  .bohem-swiper-buttons .swiper-button-prev::after,
+  .bohem-swiper-buttons .swiper-button-next::after {
+    content: none !important;
+  }
+
+
+}
+
+.bohem-product-media-slider {
+  .swiper-pagination {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    /* override Swiper inline styles/centering */
+    justify-content: stretch;
+  }
+
+  .swiper-pagination-bullet {
+    flex: 1 1 0;
+    height: 4px;
+    border-radius: 4px;
+
+    background: transparent;
+    opacity: 1;
+
+    transition: background 150ms ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: $black;
+  }
+}
+
+.product-cheapest-price {
+  display: none;
+}
+
+.product-badges {
+  .badge {
+    font-weight: 400;
+    color: $black;
+    background: $white;
+    font-size: 14px;
+    border-radius: 0;
+    line-height: 22px;
+    height: 24px;
+  }
+}

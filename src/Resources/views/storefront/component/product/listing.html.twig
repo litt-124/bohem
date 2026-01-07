@@ -1,0 +1,10 @@
+{% sw_extends '@Storefront/storefront/component/product/listing.html.twig' %}
+
+  {% block element_product_listing_sorting %}
+      <div class="visually-hidden">
+      {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
+          current: searchResult.sorting,
+          sortings: searchResult.availableSortings
+      } %}
+      </div>
+  {% endblock %}

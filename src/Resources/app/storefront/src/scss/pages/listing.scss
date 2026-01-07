@@ -1,0 +1,78 @@
+.is--sidebar {
+  .filter-panel-item-toggle {
+    color: $black;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+
+    &[aria-expanded="true"] {
+      color: $black;
+
+      svg {
+        color: $black;
+      }
+    }
+  }
+
+  .filter-panel-item-dropdown {
+    border: none;
+  }
+}
+
+.filter-panel-item-dropdown {
+  padding: 0;
+  overflow: hidden;
+}
+
+.filter-multi-select-item-label {
+  text-transform: uppercase;
+}
+
+.filter-property-select-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+}
+
+.filter-property-select-preview-checkmark {
+  width: 12px;
+  height: 12px;
+  border: none;
+
+  .icon {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.filter-active {
+  border-radius: 0;
+  border-color: $black;
+}
+
+.filter-active-preview {
+  border-radius: 0;
+}
+
+.filter-property-select-checkbox {
+  border-radius: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn.filter-reset-all {
+  --bs-btn-color: #{$black};
+  --bs-btn-border-color: #{$black};
+  --bs-btn-hover-color: #{$white};
+  --bs-btn-hover-bg: #{$black};
+  --bs-btn-hover-border-color: #{$black};
+  --bs-btn-active-color: #{$black};
+  --bs-btn-active-bg: #{$white};
+  --bs-btn-active-border-color: #{$black};
+  --bs-btn-disabled-color: #{$black};
+  --bs-btn-disabled-border-color: #{$black};
+  border-radius: 0;
+}

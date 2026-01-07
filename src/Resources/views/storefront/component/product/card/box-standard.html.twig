@@ -1,0 +1,162 @@
+{% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
+
+ {% block component_product_box_description %}
+ {% endblock %}
+{% block component_product_box_image %}
+ <div class="product-image-wrapper bohem-product-media-slider">
+
+  {# fallback if display mode is not set #}
+  {% set displayMode = displayMode ?: 'standard' %}
+
+  {# set display mode 'cover' for box-image with standard display mode #}
+  {% if layout == 'image' and displayMode == 'standard' %}
+   {% set displayMode = 'cover' %}
+  {% endif %}
+
+  {% set uniqueId = id %}
+
+  {# Build slides: 1) cover, 2) two gallery images excluding cover #}
+  {% set slides = [] %}
+
+  {% if product.cover and product.cover.media %}
+   {% set slides = slides|merge([product.cover.media]) %}
+  {% endif %}
+
+  {% if product.media %}
+   {% for pm in product.media %}
+    {% if pm.media %}
+     {% set m = pm.media %}
+
+     {# exclude duplicate of cover #}
+     {% if slides|length == 0 or m.id != slides[0].id %}
+      {% set slides = slides|merge([m]) %}
+     {% endif %}
+    {% endif %}
+
+    {% if slides|length >= 3 %}
+     {% break %}
+    {% endif %}
+   {% endfor %}
+  {% endif %}
+
+     {% set uniqueId = id %}
+
+     {% set sliderOptions = {
+         slidesPerView: 1,
+         speed: 300,
+         navigation: {
+             nextEl: '.bohem-swiper-next-' ~ uniqueId,
+             prevEl: '.bohem-swiper-prev-' ~ uniqueId
+         },
+         pagination: {
+             el: '.bohem-swiper-pagination-' ~ uniqueId,
+             clickable: true
+         }
+     } %}
+
+
+  {# keep link behavior consistent with core #}
+  {% block component_product_box_image_link %}
+   {% if not feature('ACCESSIBILITY_TWEAKS') %}
+    <a href="{{ seoUrl('frontend.detail.page', { productId: id }) }}"
+    title="{{ name }}"
+    class="product-image-link is-{{ displayMode }}">
+   {% endif %}
+
+   {% block component_product_box_image_link_inner %}
+    {% if slides|length > 1 %}
+     <div class="base-slider image-slider"
+          data-swiper-slider="true"
+          data-swiper-slider-options="{{ sliderOptions|json_encode }}">
+
+      <div class="image-slider-container" data-swiper-slider-container="true">
+       <div class="swiper-wrapper">
+
+           {% for m in slides %}
+               {% set isFirst = loop.first %}
+
+               {% set attributes = {
+                   class: 'product-image is-' ~ displayMode,
+                   title: (m.translated.title ?: name),
+                   alt: (m.translated.alt ?: name),
+                   loading: (isFirst ? 'eager' : 'lazy'),
+                   fetchpriority: (isFirst ? 'high' : 'auto')
+               } %}
+
+               {% if displayMode == 'cover' or displayMode == 'contain' %}
+                   {% set attributes = attributes|merge({ 'data-object-fit': displayMode }) %}
+               {% endif %}
+
+               <div class="swiper-slide">
+                   {% sw_thumbnails 'product-image-thumbnails' with {
+                       media: m,
+                       sizes: sizes,
+                       attributes: attributes
+                   } %}
+               </div>
+           {% endfor %}
+
+
+       </div>
+
+       <div class="swiper-buttons-container bohem-swiper-buttons">
+           <div class="swiper-pagination bohem-swiper-pagination-{{ uniqueId }}"></div>
+
+           <button
+                class="swiper-button-prev bohem-swiper-prev-{{ uniqueId }}"
+                type="button"
+                aria-label="Prev">
+               {% sw_icon 'arrow-head-left' %}
+
+           </button>
+
+        <button
+                class="swiper-button-next bohem-swiper-next-{{ uniqueId }}"
+                type="button"
+                aria-label="Next">                            {% sw_icon 'arrow-head-right' %}
+        </button>
+       </div>
+      </div>
+     </div>
+    {% else %}
+     {# fallback to default single image behavior #}
+     {% if slides|length == 1 and slides[0].url and slides[0].isSpatialObject() == false %}
+      {% set attributes = {
+       class: 'product-image is-' ~ displayMode,
+       title: (slides[0].translated.title ?: name),
+       alt: (slides[0].translated.alt ?: name),
+       loading: 'lazy'
+      } %}
+
+      {% if displayMode == 'cover' or displayMode == 'contain' %}
+       {% set attributes = attributes|merge({ 'data-object-fit': displayMode }) %}
+      {% endif %}
+
+      {% sw_thumbnails 'product-image-thumbnails' with {
+       media: slides[0],
+       sizes: sizes,
+       attributes: attributes
+      } %}
+     {% else %}
+      <div class="product-image-placeholder">
+       {% sw_icon 'placeholder' style { size: 'fluid', ariaHidden: true } %}
+      </div>
+     {% endif %}
+    {% endif %}
+   {% endblock %}
+
+   {% if not feature('ACCESSIBILITY_TWEAKS') %}
+    </a>
+   {% endif %}
+  {% endblock %}
+
+  {% if config('core.cart.wishlistEnabled') %}
+   {% block component_product_box_wishlist_action %}
+    {% sw_include '@Storefront/storefront/component/product/card/wishlist.html.twig' with {
+     appearance: 'circle',
+     productId: id
+    } %}
+   {% endblock %}
+  {% endif %}
+ </div>
+{% endblock %}

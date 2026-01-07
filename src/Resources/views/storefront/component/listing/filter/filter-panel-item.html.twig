@@ -1,0 +1,25 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-panel-item.html.twig' %}
+
+{#
+Make ALL filter panels open by default.
+We do it by forcing:
+- aria-expanded="true"
+- removing "collapsed" class
+- adding "show" to collapse container
+#}
+
+{% block component_filter_panel_item_toggle %}fffffffffffffffffffffffff
+    {% set buttonClasses = (buttonClasses|default('') ~ ' bohem-filter-toggle')|trim %}
+
+    {# Force expanded #}
+    {% set ariaExpanded = 'true' %}
+    {% set collapsed = false %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block component_filter_panel_item_content %}
+    {# Force collapse content visible #}
+    {% set collapseClasses = (collapseClasses|default('') ~ ' show')|trim %}
+    {{ parent() }}
+{% endblock %}

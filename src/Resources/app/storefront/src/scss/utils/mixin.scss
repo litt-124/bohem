@@ -1,0 +1,24 @@
+// =========================
+// Bohem Mixins
+// =========================
+
+/// Hide scrollbar but keep scrolling enabled
+/// Usage:
+///   .my-scroll { overflow: auto; @include hide-scrollbar; }
+@mixin hide-scrollbar {
+  -ms-overflow-style: none;  // IE & old Edge
+  scrollbar-width: none;     // Firefox
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}

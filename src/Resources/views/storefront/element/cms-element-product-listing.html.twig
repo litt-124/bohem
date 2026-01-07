@@ -1,0 +1,8 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-product-listing.html.twig' %}
+
+ {% block element_product_listing_wrapper %}
+     {% if section and section.type == 'sidebar' %}
+         {% set listingColumns = 'col-sm-6 col-lg-4 col-xl-3' %}
+     {% endif %}
+     {{ parent() }}
+ {% endblock %}
