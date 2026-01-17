@@ -1,0 +1,17 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+        {% block buy_widget_ordernumber_container %}
+            {{ parent() }}
+            {% block page_product_detail_description_content_text %}
+                <div class="product-detail-description-text"
+                     itemprop="description">
+                    {{ page.product.translated.description|raw }}
+                </div>
+            {% endblock %}
+
+            {% block page_product_detail_description_content_properties %}
+                {% if page.product.sortedProperties|length > 0 %}
+                    {% sw_include '@Storefront/storefront/component/product/properties.html.twig' %}
+                {% endif %}
+            {% endblock %}
+{% endblock %}

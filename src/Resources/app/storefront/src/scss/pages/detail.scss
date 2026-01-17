@@ -1,0 +1,12 @@
+.cms-block-gallery-buybox {
+  .cms-block-container-row {
+    align-items: flex-start;
+
+    .product-detail-media {
+      @include media-breakpoint-up(lg) {
+        position: sticky;
+        top: 20px;
+      }
+    }
+  }
+}

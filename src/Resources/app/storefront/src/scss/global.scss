@@ -1,3 +1,7 @@
 .hide-scrollbar{
   @include hide-scrollbar();
 }
+
+.no-overflow{
+  overflow: unset;
+}
