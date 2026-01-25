@@ -1,0 +1,126 @@
+{% sw_extends "@Storefront/storefront/layout/header/search.html.twig" %}
+
+{# Keep your logo + close button above the form (same as you had) #}
+{% block layout_header_search_form %}
+    <div class="col search-logo-container pb-sm-2 my-2">
+        {% sw_include '@Storefront/storefront/layout/header/logo.html.twig' %}
+        <button
+                class="btn search-close-btn js-search-close-btn"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#searchCollapse"
+                aria-controls="searchCollapse"
+                aria-expanded="true"
+                aria-label="{{ 'header.searchCloseButton'|trans|striptags }}"
+        >
+            <span class="header-close-icon">
+                {% sw_icon 'x' %}
+            </span>
+        </button>
+    </div>
+
+    {{ parent() }}
+{% endblock %}
+
+{# IMPORTANT: inject your container INSIDE the form by extending the input-group block #}
+{% block layout_header_search_input_group %}
+    {{ parent() }}
+
+    <div class="search-content-container js-search-content-container">
+
+
+        {# -------- DYNAMIC PART (default OR results) -------- #}
+        <div class="search-content-dynamic">
+            {# Default content is ALWAYS in HTML, we only hide/show it #}
+            <div class="search-dynamic-default js-search-dynamic-default">
+                {% set categories = page.extensions.bohemSearchDefaultCategories ?? null %}
+
+                {% if categories and categories.total > 0 %}
+                    <ul class="search-default-categories search-suggest-container">
+                        {% for category in categories %}
+                            <li class="search-suggest-product ">
+                            <a class="search-default-category search-suggest-product-link"
+                               href="{{ path('frontend.navigation.page', { navigationId: category.id }) }}">
+<div class="row align-items-center g-0">
+                                <div class="col-auto search-suggest-product-image-container">
+                                    {% if category.media %}
+                                        {% sw_thumbnails 'search-default-category-thumb' with {
+                                            media: category.media,
+                                            sizes: { default: '200px' },
+                                            attributes: {
+                                                alt: category.translated.name,
+                                                class: 'search-suggest-product-image'
+                                            }
+                                        } %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="col search-suggest-product-name">
+                                    {{ category.translated.name }}
+                                </div>
+</div>
+                            </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="search-empty-state">
+                        Start typing (min. {{ shopware.minSearchLength }}) to see suggestions…
+                    </div>
+                {% endif %}
+            </div>
+
+
+            {# Results slot: AJAX suggest HTML will be injected here #}
+            <div class="search-dynamic-results js-search-dynamic-results"></div>
+        </div>
+        {# -------- CONSTANT PART (always visible) -------- #}
+        <div class="search-content-constant">
+            <div class="search-customer-care">
+                <div class="search-customer-care-title h3">
+                    {{ 'bohemTheme.customerCare.title'|trans|sw_sanitize }}
+                </div>
+
+                <ul class="search-customer-care-list">
+                    <li class="search-customer-care-item">
+                        <a class="search-customer-care-link"
+                           href="{{ 'bohemTheme.customerCare.contactUrl'|trans }}">
+                <span class="search-customer-care-icon" aria-hidden="true">
+                    {% sw_icon 'headset' style { size: 'sm' } %}
+                </span>
+                            <span class="search-customer-care-text">
+                    {{ 'bohemTheme.customerCare.contact'|trans|sw_sanitize }}
+                </span>
+                        </a>
+                    </li>
+
+                    <li class="search-customer-care-item">
+                        <a class="search-customer-care-link"
+                           href="{{ 'bohemTheme.customerCare.aboutUrl'|trans }}">
+                <span class="search-customer-care-icon" aria-hidden="true">
+                    {% sw_icon 'info' style { size: 'sm' } %}
+                </span>
+                            <span class="search-customer-care-text">
+                    {{ 'bohemTheme.customerCare.about'|trans|sw_sanitize }}
+                </span>
+                        </a>
+                    </li>
+
+                    <li class="search-customer-care-item">
+                        <a class="search-customer-care-link"
+                           href="{{ 'bohemTheme.customerCare.privacyUrl'|trans }}">
+                <span class="search-customer-care-icon" aria-hidden="true">
+                    {% sw_icon 'shield' style { size: 'sm' } %}
+                </span>
+                            <span class="search-customer-care-text">
+                    {{ 'bohemTheme.customerCare.privacy'|trans|sw_sanitize }}
+                </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{
+  "bohemTheme": {
+    "customerCare": {
+      "title": "Customer Care",
+
+      "contact": "Contact us",
+      "about": "About us",
+      "privacy": "Privacy policy",
+
+      "contactUrl": "/contact",
+      "aboutUrl": "/about-us",
+      "privacyUrl": "/privacy-policy"
+    }
+  }
+}

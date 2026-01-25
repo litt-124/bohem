@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/layout/navigation/navigation.html.twig' %}
+
+{# 1. Render the EXISTING searchCollapse right after navigation #}
+{% block layout_main_navigation %}
+    {{ parent() }}
+
+    <div class="nav-searchbar">
+        {# IMPORTANT: this already contains <div class="collapse" id="searchCollapse"> #}
+        {% sw_include '@Storefront/storefront/layout/header/search.html.twig' %}
+    </div>
+{% endblock %}
+
+{# 2. Add the search toggle button after categories #}
+{% block layout_main_navigation_menu_items %}
+    {{ parent() }}
+
+    <li class="nav-item nav-search-toggle-item">
+        <button
+                class="btn nav-link nav-search-toggle-btn"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#searchCollapse"
+                aria-controls="searchCollapse"
+                aria-expanded="false"
+                aria-label="{{ 'header.searchButton'|trans|sw_sanitize }}"
+        >
+            {% sw_icon 'search' style { pack: 'solid', size: 'sm' } %}
+        </button>
+    </li>
+{% endblock %}

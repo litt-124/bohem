@@ -1,0 +1,31 @@
+.nav-main {
+  -webkit-box-shadow: 0 .0625rem 0 0 rgba(0, 0, 0, .15);
+  box-shadow: 0 .0625rem 0 0 rgba(0, 0, 0, .15);
+}
+
+.main-navigation {
+  @include media-breakpoint-up(md) {
+    display: inherit;
+
+  }
+}
+
+.main-navigation-menu {
+  justify-content: center;
+  align-items: center;
+
+  .nav-item.nav-search-toggle-item {
+    .nav-search-toggle-btn {
+      padding: 0 20px;
+      border-left: 1px solid $gray-400;
+
+      .icon > svg {
+        top: 2px;
+      }
+      .icon{
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
