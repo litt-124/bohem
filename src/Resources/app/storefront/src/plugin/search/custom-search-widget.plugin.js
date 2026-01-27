@@ -51,6 +51,11 @@ export default class CustomSearchWidgetPlugin extends SearchWidgetPlugin {
         // reset arrow navigation helper to enable form submit on enter
         this._navigationHelper.resetIterator();
 
+        if (this._inputField) {
+            this._inputField.value = '';
+            this._inputField.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
         // Remove any .js-search-result that Shopware might have injected anywhere
         const results = document.querySelectorAll(this.options.searchWidgetResultSelector);
         Iterator.iterate(results, (result) => result.remove());
@@ -63,6 +68,7 @@ export default class CustomSearchWidgetPlugin extends SearchWidgetPlugin {
 
         this.$emitter.publish('clearSuggestResults');
     }
+
 
     /**
      * Override: inject suggest response into results slot + hide default
