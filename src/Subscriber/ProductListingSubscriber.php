@@ -3,6 +3,7 @@
 namespace BohemTheme\Subscriber;
 
 use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
+use Shopware\Core\Content\Product\Events\ProductSearchCriteriaEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProductListingSubscriber implements EventSubscriberInterface
@@ -10,18 +11,22 @@ class ProductListingSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ProductListingCriteriaEvent::class => 'onListingCriteria',
+            ProductListingCriteriaEvent::class => 'addMediaAssociations',
+            ProductSearchCriteriaEvent::class => 'addMediaAssociations',
         ];
     }
 
-    public function onListingCriteria(ProductListingCriteriaEvent $event): void
+    /**
+     * @param object $event
+     */
+    public function addMediaAssociations(object $event): void
     {
         $criteria = $event->getCriteria();
 
-        // Ensure cover is fully hydrated (ProductMediaEntity + nested MediaEntity)
+        // Cover image
         $criteria->addAssociation('cover.media');
 
-        // Load gallery media (ProductMediaEntity collection) + nested MediaEntity
+        // Gallery media
         $criteria->addAssociation('media.media');
     }
 }
