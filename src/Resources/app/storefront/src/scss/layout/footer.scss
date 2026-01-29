@@ -1,7 +1,23 @@
-.footer-column-headline{
+.footer-column-headline {
   align-items: center;
   justify-content: center;
+  a:first-of-type{
+    text-transform: uppercase;
+  }
 }
-.footer-column{
+
+.footer-column {
   text-align: center;
+  border: none;
+}
+
+.footer-follow-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  .footer-follow-link {
+    text-transform: uppercase;
+    color: $black;
+  }
 }

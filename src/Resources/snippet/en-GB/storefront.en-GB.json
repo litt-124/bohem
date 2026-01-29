@@ -10,6 +10,17 @@
       "contactUrl": "/contact",
       "aboutUrl": "/about-us",
       "privacyUrl": "/privacy-policy"
+    },
+    "footer": {
+      "followUs": "FOLLOW US",
+      "social": {
+        "instagramUrl": "https://www.instagram.com/bohem_jewellery_",
+        "tiktokUrl": "https://www.tiktok.com/@bohem__jewelery",
+        "facebookUrl": "https://www.facebook.com/bohem__jewelery",
+        "instagramLabel": "Instagram",
+        "tiktokLabel": "TikTok",
+        "facebookLabel": "Facebook"
+      }
     }
   }
 }
