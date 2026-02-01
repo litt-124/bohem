@@ -1,0 +1,36 @@
+.is-act-loginpage {
+  .account-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-tabs {
+    --bs-nav-tabs-border-width:0;
+    justify-content: center;
+    .nav-link {
+      border-width: 0;
+      padding-left: 0;
+      text-transform: uppercase;
+      &.active{
+        font-weight: bolder;
+        text-decoration: underline;
+      }
+      &:hover{
+        text-decoration: underline;
+
+      }
+    }
+  }
+
+  .tab-content{
+    @include media-breakpoint-up(md) {
+      min-width: 500px;
+    }
+    @include media-breakpoint-up(lg) {
+      min-width: 800px;
+    }
+
+    }
+}
